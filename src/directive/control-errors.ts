@@ -43,16 +43,16 @@ export const FORM_ERRORS = new InjectionToken('FORM_ERRORS', {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ControlErrorComponent {
-  _text: string;
-  _hide = true;
+  text: string;
+  hide = true;
 
   constructor(private cdr: ChangeDetectorRef) {
   }
 
   @Input() set text(value) {
-    if (value !== this._text) {
-      this._text = value;
-      this._hide = !value;
+    if (value !== this.text) {
+      this.text = value;
+      this.hide = !value;
       this.cdr.detectChanges();
     }
   }

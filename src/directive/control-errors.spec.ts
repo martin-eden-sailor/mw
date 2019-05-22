@@ -91,8 +91,8 @@ describe('Control Errors', () => {
     // componentDe.query(By.css('button')).triggerEventHandler('click', null);
     const submitBtn: HTMLElement = componentEl.querySelector('button');
     // console.log();
-    //submitBtn.click();
-   //  fixture.detectChanges();
-    //console.log(app.formSubmitDirective);
+    // submitBtn.click();
+    // fixture.detectChanges();
+    // console.log(app.formSubmitDirective);
   });
 });
