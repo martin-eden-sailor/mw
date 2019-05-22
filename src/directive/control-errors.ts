@@ -3,7 +3,6 @@ import {
   ChangeDetectorRef,
   Component, ComponentFactoryResolver, ComponentRef,
   Directive, ElementRef, Host, Inject,
-  inject,
   InjectionToken,
   Input, OnDestroy, OnInit, Optional, ViewContainerRef
 } from '@angular/core';
@@ -35,61 +34,6 @@ export const FORM_ERRORS = new InjectionToken('FORM_ERRORS', {
   providedIn: 'root',
   factory: () => defaultErrors
 });
-
-/**
- * It is applied to a form element to handle value changes
- * and manage error output.
- */
-@Directive({
-  selector: '[formControl], [formControlName]'
-})
-export class ControlErrorsDirective implements OnInit, OnDestroy {
-  submit$: Observable<Event> = EMPTY;
-  container: ViewContainerRef;
-  ref: ComponentRef<ControlErrorComponent>;
-
-  constructor(
-    // @Optional() @Host() private form: FormSubmitDirective,
-    private control: NgControl,
-    private resolver: ComponentFactoryResolver,
-    public viewContainerRef: ViewContainerRef,
-    @Inject(FORM_ERRORS) private errors,
-    @Optional() controlErrorContainer: ControlErrorContainerDirective
-  ) {
-    // this.submit$ = this.form ? this.form.submit$ : EMPTY;
-    // this.container = controlErrorContainer ? controlErrorContainer.vcr : this.viewContainerRef;
-    this.container = this.viewContainerRef;
-  }
-
-  ngOnDestroy() {}
-
-  ngOnInit() {
-    merge(
-      this.submit$,
-      this.control.valueChanges
-    )
-      .pipe(
-        untilDestroyed(this)
-      )
-      .subscribe(() => {
-        const controlErrors = this.control.errors;
-        if (controlErrors) {
-          const firstKey = Object.keys(controlErrors)[0];
-          const getError = this.errors[firstKey];
-          const text = getError(controlErrors[firstKey]);
-        }
-      });
-  }
-
-  setError(text: string) {
-    if (!this.ref) {
-      const factory = this.resolver.resolveComponentFactory(ControlErrorComponent);
-      this.ref = this.container.createComponent(factory);
-    }
-
-    this.ref.instance.text = text;
-  }
-}
 
 /**
  * This is the component that displays errors.
@@ -129,7 +73,7 @@ export class ControlErrorContainerDirective {
   selector: 'form'
 })
 export class FormSubmitDirective {
-  submit$ = fromEvent(this.element, 'submit')
+  public submit$ = fromEvent(this.element, 'submit')
     .pipe(
       tap(() => {
         if (this.element.classList.contains('submitted') === false) {
@@ -140,10 +84,68 @@ export class FormSubmitDirective {
     );
 
   constructor(private host: ElementRef<HTMLFormElement>) {
-    console.log('constructed');
+    console.log('FormSubmitDirective constructed');
   }
 
   get element() {
     return this.host.nativeElement;
+  }
+}
+
+/**
+ * It is applied to a form element to handle value changes
+ * and manage error output.
+ */
+@Directive({
+  selector: '[formControl], [formControlName]'
+})
+export class ControlErrorsDirective implements OnInit, OnDestroy {
+  submit$: Observable<Event> = EMPTY;
+  container: ViewContainerRef;
+  ref: ComponentRef<ControlErrorComponent>;
+
+  constructor(
+    public viewContainerRef: ViewContainerRef,
+    @Optional() @Host() private form: FormSubmitDirective,
+
+    private control: NgControl,
+    private resolver: ComponentFactoryResolver,
+    @Inject(FORM_ERRORS) private errors,
+    @Optional() controlErrorContainer: ControlErrorContainerDirective
+  ) {
+    this.submit$ = this.form ? this.form.submit$ : EMPTY;
+    this.container = controlErrorContainer ? controlErrorContainer.vcr : this.viewContainerRef;
+  }
+
+  ngOnDestroy() {}
+
+  ngOnInit() {
+    console.log('firective ngOn');
+    merge(
+      this.submit$,
+      this.control.valueChanges
+    )
+      .pipe(
+        untilDestroyed(this)
+      )
+      .subscribe(() => {
+        console.log('Validation event....');
+        const controlErrors = this.control.errors;
+        if (controlErrors) {
+          const firstKey = Object.keys(controlErrors)[0];
+          const getError = this.errors[firstKey];
+          const text = getError(controlErrors[firstKey]);
+          // //this.setError(text);
+        }
+      });
+  }
+
+  setError(text: string) {
+    if (!this.ref) {
+      const factory = this.resolver.resolveComponentFactory(ControlErrorComponent);
+      this.ref = this.container.createComponent(factory);
+    }
+
+    this.ref.instance.text = text;
   }
 }
