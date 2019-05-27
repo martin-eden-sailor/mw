@@ -71,7 +71,6 @@ describe('Form submit directive', () => {
     const toSetSumissionValue = 'Submitted1';
     app.formSubmitDirective.submit$.subscribe((data) => {
       submissionValue = toSetSumissionValue;
-      console.log(submissionValue);
     });
     submitBtn.click();
 

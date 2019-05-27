@@ -50,7 +50,6 @@ export class ControlErrorsDirective implements OnInit, OnDestroy {
   ngOnDestroy() {}
 
   ngOnInit() {
-    console.log('Control errors directtive...');
     merge(
       this.submit$,
       this.control.valueChanges
@@ -59,7 +58,6 @@ export class ControlErrorsDirective implements OnInit, OnDestroy {
         untilDestroyed(this)
       )
       .subscribe(() => {
-        console.log('Validation event....');
         const controlErrors = this.control.errors;
         if (controlErrors) {
           const firstKey = Object.keys(controlErrors)[0];
