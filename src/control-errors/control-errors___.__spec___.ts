@@ -12,13 +12,13 @@ import {By} from '@angular/platform-browser';
 @Component({
   selector: 'test-form-component',
   template: `
-    <form [formGroup]="form" controlErrorContainer (ngSubmit)="onSubmit($event)">
+    <form [formGroup]="form" controlErrorContainer (ngSubmit)="onSubmit()">
       <div class="field">
         <div class="control">
           <input type="text" class="input" formControlName="name" placeholder="name">
         </div>
       </div>
-      <div class="control" (click)="click()">
+      <div class="control">
         <button type="submit" class="button is-link is-small">Submit</button>
       </div>
     </form>
@@ -37,18 +37,11 @@ class TestFormComponent implements  OnInit {
 
   ngOnInit() {
     this.form = this.builder.group({
-      name: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(6)]]
+      name: ['a', [Validators.required, Validators.minLength(2), Validators.maxLength(6)]]
     });
   }
 
-  click() {
-    console.log('Clicked...');
-  }
-
-  onSubmit($event) {
-    console.log('onSubmit...');
-    $event.preventDefault();
-  }
+  onSubmit() {}
 }
 
 
@@ -69,7 +62,7 @@ describe('Control Errors', () => {
     }).compileComponents();
   });
 
-  it('test', () => {
+  it('test', async () => {
     const fixture = TestBed.createComponent(TestFormComponent);
     const app: TestFormComponent = fixture.debugElement.componentInstance;
     app.ngOnInit();
@@ -79,20 +72,18 @@ describe('Control Errors', () => {
 
     const componentDe = fixture.debugElement;
     const componentEl: HTMLElement = componentDe.nativeElement;
+    let submissionValue = 'None';
+    let toSetSumissionValue = 'Submitted1'
     app.formSubmitDirective.submit$.subscribe((data) => {
-      console.log('submitted', data);
+      submissionValue = toSetSumissionValue;
     });
-
-    const form = componentDe.query(By.css('form'));
-    console.log('Form is invalid...', app.form.invalid);
-    console.log(form);
-    form.triggerEventHandler('ngSubmit', null);
-
-    // componentDe.query(By.css('button')).triggerEventHandler('click', null);
+    expect(app.form.invalid).toBeTruthy();
+    app.form.get('name').setValue('new value');
+    expect(app.form.get('name').value).toEqual('new value');
     const submitBtn: HTMLElement = componentEl.querySelector('button');
-    // console.log();
-    // submitBtn.click();
-    // fixture.detectChanges();
-    // console.log(app.formSubmitDirective);
+    submitBtn.click();
+    expect(submissionValue).toEqual(toSetSumissionValue);
+    const form: HTMLElement = componentEl.querySelector('form');
+    expect(form.classList.contains('submitted')).toBeTruthy();
   });
 });

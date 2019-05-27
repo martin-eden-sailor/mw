@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {TestBed} from '@angular/core/testing';
-import {FormSubmitDirective,} from './form-submit';
+import {FormSubmitDirective,} from './form-submit-directive';
 
 @Component({
   selector: 'test-form-component',
@@ -39,7 +39,7 @@ class TestFormComponent implements  OnInit {
 
 describe('Form submit directive', () => {
   beforeEach(async () => {
-    TestBed.configureTestingModule({
+    await TestBed.configureTestingModule({
       providers: [],
       imports: [
         ReactiveFormsModule,

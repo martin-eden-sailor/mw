@@ -8,7 +8,7 @@ import {
   ControlErrorComponent, ControlErrorContainerDirective,
   ControlErrorsDirective,
   FormSubmitDirective
-} from '../directive/control-errors';
+} from '../control-errors/control-errors';
 import {ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
