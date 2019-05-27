@@ -1,12 +1,7 @@
 import { TestBed, async } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
-import {
-  ControlErrorComponent,
-  ControlErrorContainerDirective,
-  ControlErrorsDirective,
-  FormSubmitDirective
-} from '../control-errors/control-errors';
+
 import {ReactiveFormsModule} from '@angular/forms';
 
 describe('AppComponent', () => {
@@ -17,12 +12,7 @@ describe('AppComponent', () => {
         ReactiveFormsModule
       ],
       declarations: [
-        AppComponent,
-        ControlErrorsDirective,
-        ControlErrorContainerDirective,
-        FormSubmitDirective,
-        ControlErrorComponent
-      ],
+        AppComponent],
     }).compileComponents();
   }));
 
