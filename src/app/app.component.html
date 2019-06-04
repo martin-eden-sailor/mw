@@ -1,20 +1,23 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<h1>Welcome to {{title }}!</h1>
-<form [formGroup]="form" controlErrorContainer>
-  <div class="field">
-    <div class="control">
-      <input type="text" class="input" formControlName="name" placeholder="name">
-    </div>
+<mat-drawer-container class="example-container" autosize>
+  <mat-drawer #drawer class="example-sidenav" mode="side">
+    <mat-list>
+      <mat-list-item>
+        <button mat-button routerLink="/">Home</button>
+      </mat-list-item>
+      <mat-list-item>
+        <button mat-button routerLink="/translate">Translate</button>
+      </mat-list-item>
+    </mat-list>
+  </mat-drawer>
+
+  <div class="example-sidenav-content">
+    <mat-toolbar>
+      <button type="button" mat-button (click)="drawer.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <h1>Welcome to {{title }}!</h1>
+    </mat-toolbar>
+    <router-outlet></router-outlet>
   </div>
-  <div class="control">
-    <button class="button is-link is-small">Submit</button>
-  </div>
-</form>
 
-{{ form.getRawValue() | json }}
-{{ form.errors | json }}
-{{ form.controls['name'].errors | json }}
-form.valid - {{ form.valid }}
-
-
-<router-outlet></router-outlet>
+</mat-drawer-container>

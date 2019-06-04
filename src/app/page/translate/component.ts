@@ -5,6 +5,7 @@ import {SubtitleService} from '../../../service/subtitle';
 
 @Component({
   selector: 'translate-page-component',
+  styleUrls: ['style.sass'],
   templateUrl: './template.html'
 })
 export class TranslatePageComponent {

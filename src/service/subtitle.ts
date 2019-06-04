@@ -2,9 +2,45 @@ import {Injectable} from '@angular/core';
 import * as parser from 'subtitles-parser';
 import * as _ from 'lodash';
 import * as pos from 'pos';
+import * as uuid from 'uuid';
+import {Translate} from '@google-cloud/translate';
+
+export type IWordPair = [string, string];
+
+export interface ITranslation {
+  uuid: string;
+  word: string;
+  equivalent: string;
+}
 
 @Injectable()
 export class SubtitleService {
+  private wordTranslations: ITranslation[];
+
+  constructor() {
+    this.wordTranslations = [];
+  }
+
+  public addWordEquivalent(pair: IWordPair): ITranslation {
+    const translation: ITranslation = {
+      uuid: uuid.v4(),
+      word: pair[0],
+      equivalent: pair[1]
+    };
+
+    this.wordTranslations.push(translation);
+
+    return translation;
+  }
+
+  public getWordTranslatiobById(_uuid: string): ITranslation | undefined {
+    return this.wordTranslations.find((wordTranslation) => wordTranslation.uuid === _uuid);
+  }
+
+  public getWordTranslations(): ITranslation[] {
+    return this.wordTranslations;
+  }
+
   public parse(srtText) {
     var data = parser.fromSrt(srtText);
     let text = _.join(_.map(data, 'text'), ' ');
@@ -48,5 +84,12 @@ export class SubtitleService {
     }
 
     return Promise.resolve(undefined);
+  }
+
+  public async gTranlate(text: string, target: string) {
+    const translate = new Translate();
+    const translations = await translate.translate(text, target);
+
+    return translations;
   }
 }

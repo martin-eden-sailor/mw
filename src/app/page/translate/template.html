@@ -1,8 +1,11 @@
-<div [formGroup]="form">
-  <button (click)="clear()">Clear</button>
+<div [formGroup]="form" class="form">
+  <button mat-raised-button="" (click)="clear()">Clear</button>
   <mat-form-field>
     <input matInput type="text" placeholder="Translate" formControlName="word">
   </mat-form-field>
-  <button mat-button-raised (click)="translate()">Translate</button>
-  <button mat-button-raised [disabled]="form.invalid">Save</button>
+  <button mat-raised-button (click)="translate()">Translate</button>
+  <mat-form-field>
+    <input matInput type="text" placeholder="Equivalent" formControlName="translation">
+  </mat-form-field>
+  <button mat-raised-button [disabled]="form.invalid">Save</button>
 </div>

@@ -1,4 +1,5 @@
 import {SubtitleService} from './subtitle';
+import {describe} from 'selenium-webdriver/testing';
 
 describe('Subtitle service', () => {
   let subtitleService: SubtitleService;
@@ -44,4 +45,20 @@ Berry cherry orange bean.
     expect(emptyTranslation).toBeUndefined();
   });
 
+  describe('Translations', () => {
+    it('GetAll/Add/Find', async () => {
+      const word = 'bean';
+      const equivalent = await subtitleService.translate(word);
+      expect(equivalent).toEqual('бобы');
+      const translationA = subtitleService.addWordEquivalent([word, equivalent]);
+      expect(!!translationA.uuid).toBeTruthy();
+      const translationB = subtitleService.getWordTranslatiobById(translationA.uuid);
+      expect(translationA.uuid).toEqual(translationB.uuid);
+    });
+  });
+
+  it('Google translate', async () => {
+    const translations = await subtitleService.gTranlate('Hello', 'ru');
+    console.log(translations);
+  });
 });
