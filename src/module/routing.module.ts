@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import {TranslatePageComponent} from './page/translate/component';
-import {HomePageComponent} from './page/home/component';
+import {TranslatePageComponent} from './app/page/translate/component';
+import {HomePageComponent} from './app/page/home/component';
 
 const routes: Routes = [
   {
@@ -18,4 +18,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class RoutingModule { }
