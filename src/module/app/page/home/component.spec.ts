@@ -1,7 +1,7 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {ReactiveFormsModule} from '@angular/forms';
-import {MaterialModule} from '../../../module/material';
-import {SubtitleService} from '../../../service/subtitle';
+import {MaterialModule} from '../../../material';
+import {SubtitleService} from '../../service/subtitle';
 import {HomePageComponent} from './component';
 
 

@@ -1,14 +1,13 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-
-import {AppRoutingModule} from './app-routing.module';
-import {AppComponent} from './app.component';
+import {RoutingModule} from '../routing.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ReactiveFormsModule} from '@angular/forms';
 import {TranslatePageComponent} from './page/translate/component';
-import {MaterialModule} from '../module/material';
-import {SubtitleService} from '../service/subtitle';
+import {MaterialModule} from '../material';
+import {SubtitleService} from './service/subtitle';
 import {HomePageComponent} from './page/home/component';
+import {AppComponent} from './component/app/component';
 
 @NgModule({
   declarations: [
@@ -20,7 +19,7 @@ import {HomePageComponent} from './page/home/component';
   entryComponents: [],
   imports: [
     BrowserModule,
-    AppRoutingModule,
+    RoutingModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
     MaterialModule

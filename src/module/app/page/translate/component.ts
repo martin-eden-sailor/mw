@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {SubtitleService} from '../../../service/subtitle';
+import {SubtitleService} from '../../service/subtitle';
 
 
 @Component({

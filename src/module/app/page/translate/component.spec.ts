@@ -1,8 +1,8 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {ReactiveFormsModule} from '@angular/forms';
 import {TranslatePageComponent} from './component';
-import {MaterialModule} from '../../../module/material';
-import {SubtitleService} from '../../../service/subtitle';
+import {MaterialModule} from '../../../material';
+import {SubtitleService} from '../../service/subtitle';
 
 
 describe('Translate Page Component', () => {
