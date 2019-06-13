@@ -3,7 +3,6 @@ import * as parser from 'subtitles-parser';
 import * as _ from 'lodash';
 import * as pos from 'pos';
 import * as uuid from 'uuid';
-// import {Translate} from '@google-cloud/translate';
 
 export type IWordPair = [string, string];
 
@@ -42,6 +41,7 @@ export class SubtitleService {
   }
 
   public parse(srtText) {
+    return null;
     var data = parser.fromSrt(srtText);
     let text = _.join(_.map(data, 'text'), ' ');
 
@@ -84,12 +84,5 @@ export class SubtitleService {
     }
 
     return Promise.resolve(undefined);
-  }
-
-  public async gTranlate(text: string, target: string) {
-    // const translate = new Translate();
-    // const translations = await translate.translate(text, target);
-    //
-    // return translations;
   }
 }

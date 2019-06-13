@@ -1,5 +1,4 @@
 import {SubtitleService} from './subtitle';
-import {describe} from 'selenium-webdriver/testing';
 
 describe('Subtitle service', () => {
   let subtitleService: SubtitleService;
@@ -58,7 +57,7 @@ Berry cherry orange bean.
   });
 
   it('Google translate', async () => {
-    const translations = await subtitleService.gTranlate('Hello', 'ru');
-    console.log(translations);
+    // const translations = await subtitleService.gTranlate('Hello', 'ru');
+    // console.log(translations);
   });
 });
