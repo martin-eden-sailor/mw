@@ -8,6 +8,7 @@ import {MaterialModule} from '../material';
 import {SubtitleService} from './service/subtitle';
 import {HomePageComponent} from './page/home/component';
 import {AppComponent} from './component/app/component';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import {AppComponent} from './component/app/component';
   entryComponents: [],
   imports: [
     BrowserModule,
+    HttpClientModule,
     RoutingModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,

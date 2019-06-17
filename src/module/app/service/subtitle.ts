@@ -3,6 +3,9 @@ import * as parser from 'subtitles-parser';
 import * as _ from 'lodash';
 import * as pos from 'pos';
 import * as uuid from 'uuid';
+import { HttpClient } from '@angular/common/http';
+import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 export type IWordPair = [string, string];
 
@@ -16,7 +19,9 @@ export interface ITranslation {
 export class SubtitleService {
   private wordTranslations: ITranslation[];
 
-  constructor() {
+  constructor(
+      private http: HttpClient
+  ) {
     this.wordTranslations = [];
   }
 
@@ -41,7 +46,6 @@ export class SubtitleService {
   }
 
   public parse(srtText) {
-    return null;
     var data = parser.fromSrt(srtText);
     let text = _.join(_.map(data, 'text'), ' ');
 
@@ -77,7 +81,6 @@ export class SubtitleService {
       ['dish', 'блюдо'],
       ['radish', 'редиска']
     ].find((translationPair) =>  translationPair[0] === word);
-    console.log('service translate');
 
     if (pair) {
       return Promise.resolve(pair[1]);

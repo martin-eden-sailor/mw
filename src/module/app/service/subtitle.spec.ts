@@ -1,10 +1,16 @@
-import {SubtitleService} from './subtitle';
+import { SubtitleService } from './subtitle';
+import { HttpClientModule } from '@angular/common/http';
+import { TestBed } from '@angular/core/testing';
 
 describe('Subtitle service', () => {
   let subtitleService: SubtitleService;
 
   beforeEach(() => {
-    subtitleService = new SubtitleService();
+    TestBed.configureTestingModule({
+      imports: [HttpClientModule],
+      providers: [SubtitleService]
+    });
+    subtitleService = new SubtitleService(null);
   });
 
   it('Filter', () => {
