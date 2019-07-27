@@ -4,7 +4,7 @@ import {ChangeDetectionStrategy, ChangeDetectorRef, Component, Input} from '@ang
  * This is the component that displays errors.
  */
 @Component({
-  template: `<p class="help is-danger" [class.hide]="hide">{{ _text }}</p>`,
+  template: `<p class="help is-danger" [class.hide]="hide">{{ textI }}</p>`,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ControlErrorComponent {

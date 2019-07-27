@@ -9,15 +9,28 @@ import {SubtitleService} from './service/subtitle';
 import {HomePageComponent} from './page/home/component';
 import {AppComponent} from './component/app/component';
 import {HttpClientModule} from '@angular/common/http';
+import {ControlErrorComponent} from './directive/control-errors/control-error-component';
+import {
+  ControlErrorContainerDirective,
+  ControlErrorsDirective
+} from './directive/control-errors/control-errors-directive';
+import {FormSubmitDirective} from './directive/control-errors/form-submit-directive';
+import {defaultErrors, FORM_ERRORS} from './directive/control-errors/form-errors-provider';
 
 @NgModule({
   declarations: [
     AppComponent,
+    ControlErrorComponent,
+    ControlErrorsDirective,
+    ControlErrorContainerDirective,
+    FormSubmitDirective,
 
     TranslatePageComponent,
     HomePageComponent
   ],
-  entryComponents: [],
+  entryComponents: [
+    ControlErrorComponent
+  ],
   imports: [
     BrowserModule,
     HttpClientModule,
@@ -27,7 +40,10 @@ import {HttpClientModule} from '@angular/common/http';
     MaterialModule
   ],
   providers: [
-    SubtitleService
+    SubtitleService,
+    {
+      provide: FORM_ERRORS, useValue: defaultErrors
+    }
   ],
   bootstrap: [AppComponent]
 })

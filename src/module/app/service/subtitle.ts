@@ -88,4 +88,16 @@ export class SubtitleService {
 
     return Promise.resolve(undefined);
   }
+
+  public gTranslate(word: string): Observable<any> {
+    return this.http.post('https://translation.googleapis.com/language/translate/v2', {
+      q: word,
+      target: 'ru'
+    })
+      .pipe(
+        map(d => {
+          return d;
+        })
+      );
+  }
 }
